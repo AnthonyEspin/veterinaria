@@ -1,1 +1,1 @@
-web: gunicorn Veterinaria.wsgi
+web: gunicorn Veterinari.wsgi
