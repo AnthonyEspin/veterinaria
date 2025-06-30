@@ -1,0 +1,55 @@
+{% extends "plantilla.html" %}
+{% block contend %}
+<h1>Listado de Veterinarios</h1>
+<a href="NuevoVeterinario" class="btn btn-primary">Agregar Veterinario</a>
+<br><br>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Especialidad</th>
+            <th>Licencia</th>
+            <th>Experiencia (años)</th>
+            <th>Turno</th>
+            <th>Contacto</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for veterinario in veterinarios %}
+        <tr>
+            <td>{{ veterinario.id }}</td>
+            <td>{{ veterinario.nombre }}</td>
+            <td>{{ veterinario.especialidad }}</td>
+            <td>{{ veterinario.licencia }}</td>
+            <td>{{ veterinario.experiencia }}</td>
+            <td>{{ veterinario.turno }}</td>
+            <td>{{ veterinario.contacto }}</td>
+            <td>
+                <a href="EditarVeterinario/{{ veterinario.id }}" class="btn btn-outline-success"><i class="fa-solid fa-pen"></i></a>
+                <button onclick="confirmarEliminacion({{ veterinario.id }})" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    function confirmarEliminacion(id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Deseas eliminar este Veterinario?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "EliminarVeterinario/" + id;
+            }
+        });
+    }
+</script>
+{% endblock %}

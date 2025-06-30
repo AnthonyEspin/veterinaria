@@ -1,0 +1,53 @@
+{% extends "plantilla.html" %}
+{% block contend %}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light" style="border-radius: 15px;">
+        <br>
+        <h1 class="text-center">Nueva Mascota</h1>
+        <br>
+        <form id="mascotaForm" action="GuardarMascota" method="POST">
+            {% csrf_token %}
+            <label>Nombre</label>
+            <input class="form-control" type="text" name="nombre" required>
+            <br>
+            <label>Especie</label>
+            <input class="form-control" type="text" name="especie" required>
+            <br>
+            <label>Raza</label>
+            <input class="form-control" type="text" name="raza" required>
+            <br>
+            <label>Edad</label>
+            <input class="form-control" type="number" name="edad" required>
+            <br>
+            <label>Peso (kg)</label>
+            <input class="form-control" type="number" step="0.01" name="peso" required>
+            <br>
+            <label>Propietario</label>
+            <input class="form-control" type="text" name="propietario" required>
+            <br><br>
+            <button type="button" onclick="confirmarGuardado()" class="btn btn-success">Guardar</button>
+            <a href="/" class="btn btn-outline-danger">Cancelar</a>
+            <br><br>
+        </form>
+    </div>
+</div>
+<script>
+    function confirmarGuardado() {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Deseas guardar esta Mascota?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('mascotaForm').submit();
+            }
+        });
+    }
+</script>
+{% endblock %}

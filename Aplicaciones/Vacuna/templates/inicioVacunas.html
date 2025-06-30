@@ -1,0 +1,55 @@
+{% extends "plantilla.html" %}
+{% block contend %}
+<h1>Listado de Vacunas</h1>
+<a href="NuevaVacuna" class="btn btn-primary">Agregar Vacuna</a>
+<br><br>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fabricante</th>
+            <th>Dosis (ml)</th>
+            <th>Edad Aplicación (semanas)</th>
+            <th>Vigencia (meses)</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vacuna in vacunas %}
+        <tr>
+            <td>{{ vacuna.id }}</td>
+            <td>{{ vacuna.nombre }}</td>
+            <td>{{ vacuna.fabricante }}</td>
+            <td>{{ vacuna.dosis }}</td>
+            <td>{{ vacuna.edad_aplicacion }}</td>
+            <td>{{ vacuna.vigencia }}</td>
+            <td>{{ vacuna.tipo }}</td>
+            <td>
+                <a href="EditarVacuna/{{ vacuna.id }}" class="btn btn-outline-success"><i class="fa-solid fa-pen"></i></a>
+                <button onclick="confirmarEliminacion({{ vacuna.id }})" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    function confirmarEliminacion(id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Deseas eliminar esta Vacuna?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "EliminarVacuna/" + id;
+            }
+        });
+    }
+</script>
+{% endblock %}

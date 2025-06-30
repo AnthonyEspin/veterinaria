@@ -1,0 +1,54 @@
+{% extends "plantilla.html" %}
+{% block contend %}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light" style="border-radius: 15px;">
+        <br>
+        <h1 class="text-center">Editar Vacuna</h1>
+        <br>
+        <form id="editarVacunaForm" action="/ProcesarVacuna" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ vacuna.id }}">
+            <label>Nombre</label>
+            <input class="form-control" type="text" name="nombre" value="{{ vacuna.nombre }}" required>
+            <br>
+            <label>Fabricante</label>
+            <input class="form-control" type="text" name="fabricante" value="{{ vacuna.fabricante }}" required>
+            <br>
+            <label>Dosis (ml)</label>
+            <input class="form-control" type="number" step="0.01" name="dosis" value="{{ dosis }}" required>
+            <br>
+            <label>Edad de Aplicación (semanas)</label>
+            <input class="form-control" type="number" name="edad_aplicacion" value="{{ vacuna.edad_aplicacion }}" required>
+            <br>
+            <label>Vigencia (meses)</label>
+            <input class="form-control" type="number" name="vigencia" value="{{ vacuna.vigencia }}" required>
+            <br>
+            <label>Tipo</label>
+            <input class="form-control" type="text" name="tipo" value="{{ vacuna.tipo }}" required>
+            <br><br>
+            <button type="button" onclick="confirmarEdicion()" class="btn btn-success">Guardar</button>
+            <a href="/Vacuna" class="btn btn-outline-danger">Cancelar</a>
+            <br><br>
+        </form>
+    </div>
+</div>
+<script>
+    function confirmarEdicion() {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Deseas actualizar esta Vacuna?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('editarVacunaForm').submit();
+            }
+        });
+    }
+</script>
+{% endblock %}
